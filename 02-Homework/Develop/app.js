@@ -26,11 +26,7 @@ function empRender() {
       },
     ])
     .then((answers) => {
-      //const empPageContent = empHTML(answers);
-
-      //   fs.writeFile("engineer.html, intern.html, manager.html", empPageContent, (err) =>
-      //     err ? console.log(err) : console.log("Successfully created html!")
-      //   );
+  
       if (answers.role === "Manager") {
         managerRender();
       } else if (answers.role === "Engineer") {

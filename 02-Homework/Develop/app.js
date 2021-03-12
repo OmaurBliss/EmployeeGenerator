@@ -10,34 +10,59 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employeeArr = [];
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-
-
-
-
-
-
-
 function empRender() {
-    const empHTML = (answers) =>
-    `
-      <div class="card employee-card">
-      <div class="card-header">
-          <h2 class="card-title">${answers.name}</h2>
-          <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
-      </div>
-      <div class="card-body">
-          <ul class="list-group">
-              <li class="list-group-item">ID: ${answers.id}</li>
-              <li class="list-group-item">Email: <a href="mailto:${answers.email}">${answers.email}</a></li>
-              <li class="list-group-item">Office number: {{}}</li>
-          </ul>
-      </div>
-  </div>
-      `;
- 
+
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "role",
+        message: "Which employee do you want to add?",
+        choices: ["Manager", "Engineer", "Intern", "End"],
+      },
+    ])
+    .then((answers) => {
+      //const empPageContent = empHTML(answers);
+
+      //   fs.writeFile("engineer.html, intern.html, manager.html", empPageContent, (err) =>
+      //     err ? console.log(err) : console.log("Successfully created html!")
+      //   );
+      if (answers.role === "Manager") {
+        managerRender();
+      } else if (answers.role === "Engineer") {
+        engineerRender();
+      } else if (answers.role === "Intern") {
+        internRender();
+      } else if (answers.role === "End") {
+        createTeam();
+      }
+    });
+}
+//render;
+
+function managerRender() {
+  //   const managerHTML = (answers) =>
+  //     `
+  //       <div class="card employee-card">
+  //       <div class="card-header">
+  //           <h2 class="card-title">${answers.name}</h2>
+  //           <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
+  //       </div>
+  //       <div class="card-body">
+  //           <ul class="list-group">
+  //               <li class="list-group-item">ID: ${answers.id}</li>
+  //               <li class="list-group-item">Email: <a href="mailto:${answers.email}">${answers.email}</a></li>
+  //               <li class="list-group-item">Office number:${answers.officenumber}</li>
+  //           </ul>
+  //       </div>
+  //   </div>
+  //       `;
+
   inquirer
     .prompt([
       {
@@ -56,93 +81,61 @@ function empRender() {
         message: "What is your email address?",
       },
       {
-        type: "list",
-        name: "role",
-        message: "What is your role",
-        choices: ["Manager", "Engineer", "Intern"],
-      },
-    ])
-    .then((answers) => {
-        const empPageContent = empHTML(answers);
-    
-        fs.writeFile("engineer.html, intern.html, manager.html", empPageContent, (err) =>
-          err ? console.log(err) : console.log("Successfully created html!")
-        );
-      if (answers.choices === "Manager") {
-        managerRender();
-      } else if (answers.choices === "Engineer") {
-        engineerRender();
-      } else if (answers.choices === "Intern") {
-        internRender();
-      }
-    });
-}
-render;
-
-function managerRender() {
-    const managerHTML = (answers) =>
-    `
-      <div class="card employee-card">
-      <div class="card-header">
-          <h2 class="card-title">${answers.name}</h2>
-          <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
-      </div>
-      <div class="card-body">
-          <ul class="list-group">
-              <li class="list-group-item">ID: ${answers.id}</li>
-              <li class="list-group-item">Email: <a href="mailto:${answers.email}">${answers.email}</a></li>
-              <li class="list-group-item">Office number:${answers.officenumber}</li>
-          </ul>
-      </div>
-  </div>
-      `;
-      
-
-  inquirer
-    .prompt([
-      {
         type: "input",
         name: "officenumber",
         message: "What is your office number?",
       },
     ])
     .then((answers) => {
-        empHTML(answers);
-        const managerPageContent = managerHTML(answers)
-    
-        fs.appendFile("manager.html", managerPageContent, (err) =>
-          err ? console.log(err) : console.log("Successfully created README.md!")
-        );
-      });
+      //empHTML(answers);
+      //const managerPageContent = managerHTML(answers);
+
+      //   fs.appendFile("manager.html", managerPageContent, (err) =>
+      //     err ? console.log(err) : console.log("Successfully created README.md!")
+      //   );
+      const managerObj = new Manager(answers.name, answers.id, answers.email, answers.officenumber);
+      employeeArr.push(managerObj);
+      empRender();
+    });
 }
 
-empRender();
-
-
+//empRender();
 
 function engineerRender() {
-    const engineerHTML = (answers) =>
-
-    `
-      <div class="card employee-card">
-      <div class="card-header">
-          <h2 class="card-title">${answers.name}</h2>
-          <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
-      </div>
-      <div class="card-body">
-          <ul class="list-group">
-              <li class="list-group-item">ID: ${answers.id}</li>
-              <li class="list-group-item">Email: <a href="mailto:${answers.email}">${answers.email}</a></li>
-              <li class="list-group-item">Github:${answers.github}</li>
-          </ul>
-      </div>
-  </div>
-      `;
-      
-
+  //   const engineerHTML = (answers) =>
+  //     `
+  //       <div class="card employee-card">
+  //       <div class="card-header">
+  //           <h2 class="card-title">${answers.name}</h2>
+  //           <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
+  //       </div>
+  //       <div class="card-body">
+  //           <ul class="list-group">
+  //               <li class="list-group-item">ID: ${answers.id}</li>
+  //               <li class="list-group-item">Email: <a href="mailto:${answers.email}">${answers.email}</a></li>
+  //               <li class="list-group-item">Github:${answers.github}</li>
+  //           </ul>
+  //       </div>
+  //   </div>
+  //       `;
 
   inquirer
     .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is your name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is your work id number?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is your email address?",
+      },
       {
         type: "input",
         name: "github",
@@ -150,36 +143,52 @@ function engineerRender() {
       },
     ])
     .then((answers) => {
-      
-        const engineerPageContent = engineerHTML(answers)
-    
-        fs.appendFile("engineer.html", engineerPageContent, (err) =>
-          err ? console.log(err) : console.log("Successfully created README.md!")
-        );
-      });
+      //   const engineerPageContent = engineerHTML(answers);
+      //   fs.appendFile("engineer.html", engineerPageContent, (err) =>
+      //     err ? console.log(err) : console.log("Successfully created README.md!")
+      //   );
+      const engineerObj = new Engineer(answers.name, answers.id, answers.email, answers.github);
+      employeeArr.push(engineerObj);
+      empRender();
+    });
 }
-empRender();
+//empRender();
 
 function internRender() {
-  const internHTML = (answers) =>
-    `
-      <div class="card employee-card">
-      <div class="card-header">
-          <h2 class="card-title">${answers.name}</h2>
-          <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
-      </div>
-      <div class="card-body">
-          <ul class="list-group">
-              <li class="list-group-item">ID: ${answers.id}</li>
-              <li class="list-group-item">Email: <a href="mailto:${answers.email}">${answers.email}</a></li>
-              <li class="list-group-item">School: ${answers.school}</li>
-          </ul>
-      </div>
-  </div>
-      `;
+  //   const internHTML = (answers) =>
+  //     `
+  //       <div class="card employee-card">
+  //       <div class="card-header">
+  //           <h2 class="card-title">${answers.name}</h2>
+  //           <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
+  //       </div>
+  //       <div class="card-body">
+  //           <ul class="list-group">
+  //               <li class="list-group-item">ID: ${answers.id}</li>
+  //               <li class="list-group-item">Email: <a href="mailto:${answers.email}">${answers.email}</a></li>
+  //               <li class="list-group-item">School: ${answers.school}</li>
+  //           </ul>
+  //       </div>
+  //   </div>
+  //       `;
 
   inquirer
     .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is your name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is your work id number?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is your email address?",
+      },
       {
         type: "input",
         name: "school",
@@ -187,17 +196,23 @@ function internRender() {
       },
     ])
     .then((answers) => {
-       
-        const engineerPageContent = engineerHTML(answers)
-    
-        fs.appendFile("engineer.html", engineerPageContent, (err) =>
-          err ? console.log(err) : console.log("Successfully created README.md!")
-        );
-      });
+      //   const engineerPageContent = engineerHTML(answers);
+      //   fs.appendFile("engineer.html", engineerPageContent, (err) =>
+      //     err ? console.log(err) : console.log("Successfully created README.md!")
+      //   );
+      const internObj = new Intern(answers.name, answers.id, answers.email, answers.school);
+      employeeArr.push(internObj);
+      empRender();
+    });
 }
+
+function createTeam() {
+  fs.writeFile(outputPath, render(employeeArr), (err) =>
+    err ? console.log(err) : console.log("Successfully created html!")
+  );
+}
+
 empRender();
-
-
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will

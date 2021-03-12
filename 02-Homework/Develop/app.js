@@ -102,16 +102,12 @@ function engineerRender() {
       },
     ])
     .then((answers) => {
-      //   const engineerPageContent = engineerHTML(answers);
-      //   fs.appendFile("engineer.html", engineerPageContent, (err) =>
-      //     err ? console.log(err) : console.log("Successfully created README.md!")
-      //   );
+    
       const engineerObj = new Engineer(answers.name, answers.id, answers.email, answers.github);
       employeeArr.push(engineerObj);
       empRender();
     });
 }
-//empRender();
 
 function internRender() {
   //   const internHTML = (answers) =>

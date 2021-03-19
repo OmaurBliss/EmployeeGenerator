@@ -1,12 +1,14 @@
 .jumbotron {
-    background-color: blue;
-    color: white;
-    box-shadow: 5px 5px 5px black;
-    margin-bottom: 60px;
-
+  background-color: blue;
+  color: white;
+  box-shadow: 5px 5px 5px grey;
+  margin-bottom: 60px;
 }
 
-.card-header{
+.card-header {
+  background-color: mediumaquamarine;
+}
 
-    background-color: mediumaquamarine;
+.employee-card {
+  box-shadow: 5px 5px 5px grey;
 }

@@ -29,6 +29,6 @@ MIT
 
 # Contributions
 
-- U of M bootcamp tutors
+
 
   

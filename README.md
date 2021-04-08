@@ -1,4 +1,4 @@
-# Employee Generator
+# Employee Content Generator
 
 - This employee generator is a CLI that allows the user to generate a HTML webpage that displays employee information for quick access
 -  The user can use the CLI to add information specific to job roles.
